@@ -9,7 +9,7 @@ write_files:
   owner: root
   path: /etc/local.d/example.start
   permissions: '0755'
-hostname: k3s-alpha
+hostname: k3s-sandbox
 init_cmd:
 - "echo hello, init command"
 boot_cmd:
