@@ -1,0 +1,50 @@
+ssh_authorized_keys:
+- ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDjik69jihmPUa794qALxuhPcjuO/mhs5iD2oeBWOewe27p+lmo2qIA6dKGRcLP2vTq34kacZjFe99ADIDHwnKzrC8ti+JwSly0xASPhm2j9KEQ/xkc1B4VycSbWD1j/VBpbu7bfVfZ2xLvsQuqke4AqPZ/JT4RPKi+ud0PcsKjBr0rWGzRd5dXgjo1SYV8bXtuZ0EymltloI6evkAueCeHowUNnQy0TH9bIPH+UleqcgF9YEkm81fs6FgSSuK4nHqlL48ivsgU249Ln6L7UMnL3GE7+bV7+xlIBw64Zhcdc+MB6ktkXDkLFR7kabP1V2Y/J4MGIChhPlCdpq90rX+SBssZWznIBHb3sXD1pSzFoM1uamPD9ZCVhIQ+EQZWfXirt3N0vkK+dYE7QkgRjTpCoDlJvXVAMfv3SgzIUvUy41qhvOfPCAI+2Po07kDdJ4vCilssv9BAgdlvMq6sFvcmtDWNneVbisaevp6tzi/hdbbTrRW32qNLeHvYGyc7uRM= andoria
+- ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCwWlrNy8ZYtpnaQ6WTjng2M+LopCf88/uguzRTcEmt4Mz/AZPa59pt0I2wL5FX3pd1+mCjXu6XycM7UK2wLSHALBSqpytqS/farydRAixYqxE2OGFZ9ymT6R65eECetvp9Ji0Naxtyd3i6K2x0Kp9lm4W7t7Gdn1GU27aIAsWxAnRiqW2gHOpMIj4AOFkCgARIFk9gNsYljnesvcszRmHo8t81PSL3D7o/sdViGypDNM7hQ5ebVIIOtIPOCdyjV3Ea57FW77pqHAGGPw/U9KzEN3qOdniQ28BmDAQhOYCm5P7Ta2LQUOtKXOIcf5I26HMQZUHitDnkImMIU18N3Sjn+tw6dQgROnhDXUWmK0oluxMgTMhpGia83BbgZGT58Ng1licZvd4Bi9aVZa/Q3jk2wLTyYpQHWyhl6InRalblN7my+9DGP/QaSFOSki01uykawiPGrYXxQ1KeMyX2KpghVFRUpcVD16nkbcPCgDfobhxjPLevD8hjaol52FI9iWU= vagrant-delta
+write_files:
+- encoding: ""
+  content: |-
+    #!/bin/bash
+    echo hello, local service start
+  owner: root
+  path: /etc/local.d/example.start
+  permissions: '0755'
+hostname: k3s-alpha
+init_cmd:
+- "echo hello, init command"
+boot_cmd:
+- "echo hello, boot command"
+run_cmd:
+- "echo hello, run command"
+
+k3os:
+  data_sources:
+  - aws
+  - cdrom
+  modules:
+  - kvm
+  - nvme
+  sysctl:
+    kernel.printk: "4 4 1 7"
+    kernel.kptr_restrict: "1"
+  dns_nameservers:
+  - 8.8.8.8
+  - 1.1.1.1
+  ntp_servers:
+  - 0.us.pool.ntp.org
+  - 1.us.pool.ntp.org
+  password: rancher
+  #server_url: https://someserver:6443
+  #token: cluster-secret 
+  labels:
+    k3os.io/upgrade: latest
+  k3s_args:
+  - server
+  - "--cluster-init"
+  environment:
+    K3S_NODE_NAME: Sandbox
+#   http_proxy: http://myserver
+#   https_proxy: http://myserver
+  taints:
+# - key1=value1:NoSchedule
+# - key1=value1:NoExecute
