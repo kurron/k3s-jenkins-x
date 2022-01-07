@@ -43,6 +43,7 @@ k3os:
   - "--cluster-init"
   environment:
     K3S_NODE_NAME: Atlantis
+    K3S_TOKEN: secret
 #   http_proxy: http://myserver
 #   https_proxy: http://myserver
   taints:
