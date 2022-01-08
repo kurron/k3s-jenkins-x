@@ -41,11 +41,12 @@ k3os:
   k3s_args:
   - server
   - "--cluster-init"
+  - "--node-taint CriticalAddonsOnly=true:NoExecute"
   environment:
     K3S_NODE_NAME: Atlantis
     K3S_TOKEN: secret
 #   http_proxy: http://myserver
 #   https_proxy: http://myserver
   taints:
-  - node-role.kubernetes.io/master=true:NoSchedule
+# - node-role.kubernetes.io/master=true:NoSchedule
 # - key1=value1:NoExecute
