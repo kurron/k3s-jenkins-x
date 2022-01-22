@@ -41,7 +41,8 @@ k3os:
   k3s_args:
   - server
   - "--cluster-init"
-  - "--node-taint CriticalAddonsOnly=true:NoExecute"
+  - "--node-taint"
+  - "CriticalAddonsOnly=true:NoExecute"
   environment:
     K3S_NODE_NAME: Chulak
     K3S_TOKEN: secret
