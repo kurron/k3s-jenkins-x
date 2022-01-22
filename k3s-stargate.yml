@@ -33,15 +33,16 @@ k3os:
   - 0.us.pool.ntp.org
   - 1.us.pool.ntp.org
   password: rancher
-  #server_url: https://someserver:6443
-  #token: cluster-secret 
+  server_url: https://192.168.1.229:6443
+  token: secret
   labels:
     k3os.io/upgrade: latest
     kurron.org/role: master
   k3s_args:
   - server
   - "--cluster-init"
-  - "--node-taint CriticalAddonsOnly=true:NoExecute"
+  - "--node-taint"
+  - "CriticalAddonsOnly=true:NoExecute"
   environment:
     K3S_NODE_NAME: Stargate
     K3S_TOKEN: secret
