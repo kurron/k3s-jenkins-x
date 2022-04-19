@@ -1,0 +1,51 @@
+ssh_authorized_keys:
+- ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDjik69jihmPUa794qALxuhPcjuO/mhs5iD2oeBWOewe27p+lmo2qIA6dKGRcLP2vTq34kacZjFe99ADIDHwnKzrC8ti+JwSly0xASPhm2j9KEQ/xkc1B4VycSbWD1j/VBpbu7bfVfZ2xLvsQuqke4AqPZ/JT4RPKi+ud0PcsKjBr0rWGzRd5dXgjo1SYV8bXtuZ0EymltloI6evkAueCeHowUNnQy0TH9bIPH+UleqcgF9YEkm81fs6FgSSuK4nHqlL48ivsgU249Ln6L7UMnL3GE7+bV7+xlIBw64Zhcdc+MB6ktkXDkLFR7kabP1V2Y/J4MGIChhPlCdpq90rX+SBssZWznIBHb3sXD1pSzFoM1uamPD9ZCVhIQ+EQZWfXirt3N0vkK+dYE7QkgRjTpCoDlJvXVAMfv3SgzIUvUy41qhvOfPCAI+2Po07kDdJ4vCilssv9BAgdlvMq6sFvcmtDWNneVbisaevp6tzi/hdbbTrRW32qNLeHvYGyc7uRM= andoria
+write_files:
+- encoding: ""
+  content: |-
+    #!/bin/bash
+    echo hello, local service start
+  owner: root
+  path: /etc/local.d/example.start
+  permissions: '0755'
+hostname: earth
+init_cmd:
+- "echo hello, init command"
+boot_cmd:
+- "echo hello, boot command"
+run_cmd:
+- "echo hello, run command"
+
+k3os:
+  data_sources:
+  - aws
+  - cdrom
+  modules:
+  - kvm
+  - nvme
+  sysctl:
+    kernel.printk: "4 4 1 7"
+    kernel.kptr_restrict: "1"
+  dns_nameservers:
+  - 8.8.8.8
+  - 1.1.1.1
+  ntp_servers:
+  - 0.us.pool.ntp.org
+  - 1.us.pool.ntp.org
+  password: rancher
+  server_url: https://192.168.1.229:6443
+  token: secret
+  labels:
+    k3os.io/upgrade: latest
+    kurron.org/role: worker
+  k3s_args:
+  - agent
+  environment:
+    K3S_NODE_NAME: Earth
+    K3S_TOKEN: secret
+    K3S_URL: https://192.168.1.229:6443
+#   http_proxy: http://myserver
+#   https_proxy: http://myserver
+  taints:
+# - node-role.kubernetes.io/master=true:NoSchedule
+# - key1=value1:NoExecute
