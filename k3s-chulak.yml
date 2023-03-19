@@ -33,7 +33,7 @@ k3os:
   - 0.us.pool.ntp.org
   - 1.us.pool.ntp.org
   password: rancher
-  server_url: https://192.168.1.229:6443
+  server_url: https://192.168.60.20:6443
   token: secret
   labels:
     k3os.io/upgrade: latest
@@ -44,7 +44,7 @@ k3os:
   - "--node-taint"
   - "CriticalAddonsOnly=true:NoExecute"
   environment:
-    K3S_NODE_NAME: Chulak
+    K3S_NODE_NAME: chulak
     K3S_TOKEN: secret
 #   http_proxy: http://myserver
 #   https_proxy: http://myserver
